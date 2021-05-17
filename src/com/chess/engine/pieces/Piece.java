@@ -11,12 +11,12 @@ public abstract class Piece {
     protected final PieceType pieceType;
     protected final int piecePosition;
     protected final Alliance pieceAlliance;
-    protected final boolean isFirstMove;
+    public boolean isFirstMove;
     Piece(final PieceType pieceType, int piecePosition, final Alliance pieceAlliance){
         this.pieceType = pieceType;
         this.pieceAlliance = pieceAlliance;
         this.piecePosition = piecePosition;
-        this.isFirstMove = false;
+        this.isFirstMove = true;
     }
 
     @Override
@@ -54,6 +54,7 @@ public abstract class Piece {
     public boolean isFirstMove() {
         return this.isFirstMove;
     }
+
     public enum PieceType{
         PAWN("P") {
             @Override

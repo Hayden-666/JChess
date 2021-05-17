@@ -35,7 +35,7 @@ public class Table {
     private final Color lightTileColor = Color.decode("#FFFACD");
     private final Color darkTileColor = Color.decode("#593E1A");
     private static String defaultPieceImagesPath = "art/";
-    private final static Dimension OUTER_FRAME_DEMENSION = new Dimension(600,600);
+    private final static Dimension OUTER_FRAME_DEMENSION = new Dimension(500,500);
     private final static Dimension BOARD_PANEL_DIMENTION = new Dimension(400,350);
     private final static Dimension TILE_PANEL_DIMENSION = new Dimension(10,10);
 
@@ -133,7 +133,9 @@ public class Table {
                                 //move to destination coordinate (second click)
                                 destinationTile = chessBoard.getTile(tileId);
                                 final Move move = Move.moveFactory.createMove(chessBoard, sourceTile.getTileCoordinate(), destinationTile.getTileCoordinate());
+                                System.out.println("successful create move instance");
                                 final MoveTransition transition = chessBoard.currentPlayer().makeMove(move);
+                                System.out.println("successful create transition");
                                 System.out.println(transition.getMoveStatus());
                                 if(transition.getMoveStatus().isDone()){
                                     chessBoard = transition.getBoard();
@@ -189,6 +191,7 @@ public class Table {
                         final BufferedImage image =
                                 ImageIO.read(new File(defaultPieceImagesPath + board.getTile(this.tileId).getPiece().getPieceAlliance().toString().substring(0,1)
                                 + board.getTile(this.tileId).getPiece().toString()+".gif"));
+
                         add(new JLabel(new ImageIcon(image)));
                     }catch(IOException e){
                         e.printStackTrace();

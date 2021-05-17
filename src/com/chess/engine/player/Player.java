@@ -81,6 +81,7 @@ public abstract class Player {
         if(!kingAttack.isEmpty()){
             return new MoveTransition(move, this.board, MoveStatus.LEAVE_PLAYER_IN_CHECK);
         }
+        move.getMovedPiece().isFirstMove=false;
         return new MoveTransition(move,transitionBoard,MoveStatus.DONE);
     }
 
