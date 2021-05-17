@@ -100,6 +100,7 @@ public class Table {
                 }
                 validate();
                 repaint();
+                //System.out.println("drawBoard performed");
             }
         }
         private class TilePanel extends JPanel{
@@ -119,16 +120,21 @@ public class Table {
                             destinationTile = null;
                             humanMovedPiece = null;
                         }else if(isLeftMouseButton(e)){
+                            System.out.println("mouseclick detected");
                             if(sourceTile == null){
+                                //（fisrt click)
                                 sourceTile = chessBoard.getTile(tileId);
                                 humanMovedPiece = sourceTile.getPiece();
+                                //System.out.println(sourceTile==null);
                                 if(humanMovedPiece == null){
                                     sourceTile = null;
                                 }
                             }else {
+                                //move to destination coordinate (second click)
                                 destinationTile = chessBoard.getTile(tileId);
                                 final Move move = Move.moveFactory.createMove(chessBoard, sourceTile.getTileCoordinate(), destinationTile.getTileCoordinate());
                                 final MoveTransition transition = chessBoard.currentPlayer().makeMove(move);
+                                System.out.println(transition.getMoveStatus());
                                 if(transition.getMoveStatus().isDone()){
                                     chessBoard = transition.getBoard();
                                 }
@@ -139,9 +145,11 @@ public class Table {
                             SwingUtilities.invokeLater(new Runnable()  {
                                 @Override
                                 public void run() {
+                                    //System.out.println("Mouseclick detected");
                                     boardPanel.drawBoard(chessBoard);
                                 }
                             });
+
                         }
                     }
 

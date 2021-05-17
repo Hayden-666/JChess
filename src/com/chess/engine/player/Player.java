@@ -21,6 +21,7 @@ public abstract class Player {
         this.playerKing = establishking();
         this.legalMoves = legalMoves;
         this.legalMoves.addAll(calculateKingCastles(legalMoves,opponentMoves));
+        //System.out.println(this.legalMoves);
         this.isInCheck = !Player.calculateAttackOnTile(this.playerKing.getPiecePosition(),opponentMoves).isEmpty();
 
     }
@@ -41,6 +42,10 @@ public abstract class Player {
     }
 
     public boolean isLegalMove(Move move){
+        System.out.println(this.getAlliance() + " contains legal move?" + this.legalMoves.contains(move));
+        System.out.println(move.getCurrentCoordinate());
+        System.out.println(move.getDestinationCoordinate());
+
         return this.legalMoves.contains(move);
     }
     public boolean isInCheck(){
@@ -73,7 +78,7 @@ public abstract class Player {
         final Board transitionBoard = move.execute();
         final Collection<Move> kingAttack = Player.calculateAttackOnTile(transitionBoard.currentPlayer().getOpponent().getPlayerKing().getPiecePosition(),
                 transitionBoard.currentPlayer().getLegalMoves());
-        if(kingAttack.isEmpty()){
+        if(!kingAttack.isEmpty()){
             return new MoveTransition(move, this.board, MoveStatus.LEAVE_PLAYER_IN_CHECK);
         }
         return new MoveTransition(move,transitionBoard,MoveStatus.DONE);

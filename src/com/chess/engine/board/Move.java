@@ -59,6 +59,7 @@ public abstract class Move {
             }
             builder.setPiece(this.movedPiece.movePiece(this));
             builder.setMoveMaker(this.board.currentPlayer().getOpponent().getAlliance());
+            System.out.println("currentMoveMaker;" + this.board.currentPlayer().getOpponent().getAlliance());
             return builder.build();
     }
 
@@ -238,6 +239,7 @@ public abstract class Move {
             for(final Move move : board.getAllLegalMoves()){
                 if (move.getCurrentCoordinate()==currentCoordinate &&
                     move.getDestinationCoordinate()==destinationCoordinate){
+                    System.out.println("createMove method executed");
                     return move;
                 }
             }

@@ -13,9 +13,9 @@ import java.util.List;
 
 public class BlackPlayer extends Player{
     public BlackPlayer(final Board board,
-                       final Collection<Move> whiteStandardLegalMoves,
-                       final Collection<Move> blackStandardLegalMoves) {
-        super(board, whiteStandardLegalMoves, blackStandardLegalMoves);
+                       final Collection<Move> blackStandardLegalMoves,
+                       final Collection<Move> whiteStandardLegalMoves) {
+        super(board, blackStandardLegalMoves, whiteStandardLegalMoves);
     }
     @Override
     protected Collection<Move> calculateKingCastles(final Collection<Move> playerLegals,final Collection<Move> opponentLegals) {
