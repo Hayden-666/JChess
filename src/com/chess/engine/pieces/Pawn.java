@@ -17,6 +17,10 @@ public class Pawn extends Piece {
         super(PieceType.PAWN, piecePosition, pieceAlliance);
     }
     @Override
+    public Pawn movePiece(Move move) {
+        return new Pawn(move.getDestinationCoordinate(), move.getMovedPiece().getPieceAlliance());
+    }
+    @Override
     public String toString(){
         return PieceType.PAWN.toString();
     }
@@ -32,8 +36,8 @@ public class Pawn extends Piece {
                 //more work to do here
                 LegalMoves.add(new MajorMove(board, this, candidateDestinationCoordinate));
             } else if (currentCandidateOffset == 16 && this.isFirstMove() &&
-                    (boardUtils.SECOND_ROW[this.piecePosition] && this.getPieceAlliance().isBlack()) ||
-                    (boardUtils.SEVENTH_ROW[this.piecePosition] && this.getPieceAlliance().isWhite())) {
+                    (boardUtils.SEVENRTH_RANK[this.piecePosition] && this.getPieceAlliance().isBlack()) ||
+                    (boardUtils.SECOND_RANK[this.piecePosition] && this.getPieceAlliance().isWhite())) {
                 final int behindCandidateDestinationCoordinate = this.piecePosition + (this.pieceAlliance.getDirection() * 8);
                 if (!board.getTile(behindCandidateDestinationCoordinate).isTileOccupied() &&
                         !board.getTile(candidateDestinationCoordinate).isTileOccupied()) {

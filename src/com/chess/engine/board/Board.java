@@ -25,7 +25,7 @@ private Board(final Builder builder){
 
     this.whitePlayer = new WhitePlayer(this, whiteStandardLegalMoves, blackStandardLegalMoves);
     this.blackPlayer = new BlackPlayer(this, whiteStandardLegalMoves, blackStandardLegalMoves);
-    this.currentPlayer = null;
+    this.currentPlayer = builder.nextMoveMaker.choosePlayer(this.whitePlayer, this.blackPlayer);
 }
     @Override
     public String toString(){
@@ -126,9 +126,16 @@ public static Board createStandardBoard(){
     builder.setMoveMaker(Alliance.WHITE);
     return builder.build();
 }
+    public Iterable<Move> getAllLegalMoves(){
+        List<Move> allLegalMoves = new ArrayList<>();
+        allLegalMoves.addAll(this.whitePlayer.getLegalMoves());
+        allLegalMoves.addAll(this.blackPlayer.getLegalMoves());
+        return Collections.unmodifiableList(allLegalMoves);
+    }
     public static class Builder{
     Map<Integer, Piece> boardConfig;
     Alliance nextMoveMaker;
+    Pawn enPassantPawn;
     public Builder(){
         this.boardConfig = new HashMap<>();
     }
@@ -144,6 +151,10 @@ public static Board createStandardBoard(){
         this.nextMoveMaker = nextMoveMaker;
         return this;
     }
+
+        public void setEnPassantPawn(Pawn movedPawn) {
+        this.enPassantPawn = movedPawn;
+        }
     }
 }
 

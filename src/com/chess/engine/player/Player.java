@@ -20,6 +20,7 @@ public abstract class Player {
         this.board = board;
         this.playerKing = establishking();
         this.legalMoves = legalMoves;
+        this.legalMoves.addAll(calculateKingCastles(legalMoves,opponentMoves));
         this.isInCheck = !Player.calculateAttackOnTile(this.playerKing.getPiecePosition(),opponentMoves).isEmpty();
 
     }
@@ -29,7 +30,7 @@ public abstract class Player {
     public Collection<Move> getLegalMoves() {
         return this.legalMoves;
     }
-    private static Collection<Move> calculateAttackOnTile(int piecePosition, Collection<Move> opponentMoves) {
+    protected static Collection<Move> calculateAttackOnTile(int piecePosition, Collection<Move> opponentMoves) {
         final List<Move> attackMoves = new ArrayList<>();
         for (Move move:opponentMoves){
             if(piecePosition == move.getDestinationCoordinate()){
@@ -87,7 +88,8 @@ public abstract class Player {
         throw new RuntimeException("should not reach here! Not a valid Board!");
     }
 
-    protected abstract Collection<Piece> getActivePieces();
+    public abstract Collection<Piece> getActivePieces();
     public abstract Alliance getAlliance();
     public abstract Player getOpponent();
+    protected abstract Collection<Move> calculateKingCastles(Collection<Move> playerLegals, Collection<Move> opponentLegals);
 }

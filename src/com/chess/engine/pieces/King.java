@@ -16,6 +16,10 @@ public class King extends Piece{
     }
     private static final int[] CANDIDATE_MOVE_COORDINATE = {1,7,8,9,-1,-7,-8,-9};
     @Override
+    public King movePiece(Move move) {
+        return new King(move.getDestinationCoordinate(), move.getMovedPiece().getPieceAlliance());
+    }
+    @Override
     public String toString(){
         return PieceType.KING.toString();
     }
@@ -30,7 +34,7 @@ public class King extends Piece{
             }
             if (boardUtils.isvalidtilecoordinate(candidateDestinationCoordinate)){
                 final Tile candidateDestinationTile = board.getTile(candidateDestinationCoordinate);
-                if (candidateDestinationTile.isTileOccupied()) {
+                if (!candidateDestinationTile.isTileOccupied()) {
                     legalMoves.add(new Move.MajorMove(board,this, candidateDestinationCoordinate));
                 } else {
                     final Piece pieceAtDestination = candidateDestinationTile.getPiece();

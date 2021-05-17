@@ -20,6 +20,9 @@ public abstract class Tile {
     public static Tile createTile(final int tileCoordinate,final Piece piece) {
         return piece != null ? new OccupiedTile(tileCoordinate, piece) :EMPTY_TILE_CACHE.get(tileCoordinate);
     }
+    public int getTileCoordinate(){
+        return this.tileCoordinate;
+    }
     private Tile(int tileCoordinate){
         this.tileCoordinate = tileCoordinate;
     }

@@ -16,6 +16,10 @@ public class Rook extends Piece{
     }
     private final static int[] CANDIDATE_MOVE_VECTOR_COORDINATES = {1,-1,8,-8};
     @Override
+    public Rook movePiece(Move move) {
+        return new Rook(move.getDestinationCoordinate(), move.getMovedPiece().getPieceAlliance());
+    }
+    @Override
     public String toString(){
         return PieceType.ROOK.toString();
     }

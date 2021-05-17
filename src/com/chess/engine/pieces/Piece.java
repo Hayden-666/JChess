@@ -5,6 +5,7 @@ import com.chess.engine.board.Board;
 import com.chess.engine.board.Move;
 
 import java.util.Collection;
+import java.util.Objects;
 
 public abstract class Piece {
     protected final PieceType pieceType;
@@ -17,6 +18,28 @@ public abstract class Piece {
         this.piecePosition = piecePosition;
         this.isFirstMove = false;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Piece piece = (Piece) o;
+        return piecePosition == piece.piecePosition && isFirstMove == piece.isFirstMove && pieceType == piece.pieceType && pieceAlliance == piece.pieceAlliance;
+    }
+
+    @Override
+    public int hashCode() {
+        return this.cachedHashCode();
+    }
+
+    private int cachedHashCode() {
+        int result = pieceType.hashCode();
+        result = 31 * result + pieceAlliance.hashCode();
+        result = 31 * result + piecePosition;
+        result = 31 * result + (isFirstMove? 1:0);
+        return result;
+    }
+
     public PieceType getPieceType(){
         return this.pieceType;
     }
@@ -27,6 +50,7 @@ public abstract class Piece {
         return this.pieceAlliance;
     }
     public abstract Collection<Move> calculateLegalMoves(final Board board);
+    public abstract Piece movePiece(Move move);
     public boolean isFirstMove() {
         return this.isFirstMove;
     }
@@ -36,10 +60,20 @@ public abstract class Piece {
             public boolean isKing() {
                 return false;
             }
+
+            @Override
+            public boolean isRook() {
+                return false;
+            }
         },
         KNIGHT("N"){
             @Override
             public boolean isKing() {
+                return false;
+            }
+
+            @Override
+            public boolean isRook() {
                 return false;
             }
         },
@@ -48,11 +82,21 @@ public abstract class Piece {
             public boolean isKing() {
                 return false;
             }
+
+            @Override
+            public boolean isRook() {
+                return false;
+            }
         },
         ROOK("R"){
             @Override
             public boolean isKing() {
                 return false;
+            }
+
+            @Override
+            public boolean isRook() {
+                return true;
             }
         },
         KING("K"){
@@ -60,10 +104,20 @@ public abstract class Piece {
             public boolean isKing() {
                 return true;
             }
+
+            @Override
+            public boolean isRook() {
+                return false;
+            }
         },
         QUEEN("Q"){
             @Override
             public boolean isKing() {
+                return false;
+            }
+
+            @Override
+            public boolean isRook() {
                 return false;
             }
         };
@@ -77,5 +131,7 @@ public abstract class Piece {
         }
 
         public abstract boolean isKing();
+
+        public abstract boolean isRook();
     }
 }
