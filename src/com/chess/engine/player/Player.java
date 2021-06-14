@@ -81,7 +81,8 @@ public abstract class Player {
         if(!kingAttack.isEmpty()){
             return new MoveTransition(move, this.board, MoveStatus.LEAVE_PLAYER_IN_CHECK);
         }
-        move.getMovedPiece().isFirstMove=false;
+        System.out.println("is this the first move? "+ move.getMovedPiece().isFirstMove());
+       // move.getMovedPiece().isFirstMove=false;
         return new MoveTransition(move,transitionBoard,MoveStatus.DONE);
     }
 
@@ -91,6 +92,7 @@ public abstract class Player {
                 return (King) piece;
             }
         }
+        System.out.println("WTF?? there is no king ??");
         throw new RuntimeException("should not reach here! Not a valid Board!");
     }
 

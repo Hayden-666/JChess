@@ -14,7 +14,10 @@ public class Queen extends Piece {
     private static final int[] CANDIDATE_MOVE_VECTOR_COORDINATES = {-9, -7, 7, 9, 1, -1, 8, -8};
 
     public Queen(final int piecePosition,final Alliance pieceAlliance) {
-        super(PieceType.QUEEN, piecePosition, pieceAlliance);
+        super(PieceType.QUEEN, piecePosition, pieceAlliance,true);
+    }
+    public Queen(final int piecePosition,final Alliance pieceAlliance,final boolean isFirstMove) {
+        super(PieceType.QUEEN, piecePosition, pieceAlliance, isFirstMove);
     }
     @Override
     public Queen movePiece(Move move) {
@@ -24,14 +27,23 @@ public class Queen extends Piece {
     public String toString(){
         return PieceType.QUEEN.toString();
     }
+
+    @Override
+    public boolean isPawn() {
+        return false;
+    }
+
+    @Override
+    public Queen PawnPromo(Move move) {
+        return null;
+    }
+
     @Override
     public Collection<Move> calculateLegalMoves(Board board) {
         final List<Move> legalMoves = new ArrayList<>();
-
         for (final int candidateoordinationOffset : CANDIDATE_MOVE_VECTOR_COORDINATES) {
             int candidateDestinationCoordinate = this.piecePosition;
             while (boardUtils.isvalidtilecoordinate(candidateDestinationCoordinate)) {
-
                 if(isFirstColumnExclusion(candidateDestinationCoordinate,candidateoordinationOffset)||
                         isEightColumnExclusion(candidateDestinationCoordinate,candidateoordinationOffset)) {
                     break;
@@ -45,7 +57,7 @@ public class Queen extends Piece {
                         final Piece pieceAtDestination = candidateDestinationTile.getPiece();
                         final Alliance pieceAlliance = pieceAtDestination.getPieceAlliance();
                         if (this.pieceAlliance != pieceAlliance) {
-                            legalMoves.add(new Move.AttackMove(board, this, candidateDestinationCoordinate, pieceAtDestination));
+                            legalMoves.add(new Move.MajorAttackMove(board, this, candidateDestinationCoordinate, pieceAtDestination));
 
                         }
                         break;
@@ -61,6 +73,6 @@ public class Queen extends Piece {
     }
 
     private static boolean isEightColumnExclusion(final int currentPosition, final int candidateOffset) {
-        return boardUtils.EIGHTH_COLUMN[currentPosition] && (candidateOffset == 7 || candidateOffset == -9 || candidateOffset == 1);
+        return boardUtils.EIGHTH_COLUMN[currentPosition] && (candidateOffset == -7 || candidateOffset == 9 || candidateOffset == 1);
     }
 }

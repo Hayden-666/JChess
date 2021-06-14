@@ -15,17 +15,20 @@ public class Board {
     private final WhitePlayer whitePlayer;
     private final BlackPlayer blackPlayer;
     private final Player currentPlayer;
+    private final Pawn enPassantPawn;
 private Board(final Builder builder){
     this.gameBoard = createGameBoard(builder);
     this.WhitePieces = calculateActivePieces(this.gameBoard, Alliance.WHITE);
     this.BlackPieces = calculateActivePieces(this.gameBoard, Alliance.BLACK);
-
+    this.enPassantPawn = builder.enPassantPawn;
     final Collection<Move> whiteStandardLegalMoves = calculateLegalMoves(this.WhitePieces);
     final Collection<Move> blackStandardLegalMoves = calculateLegalMoves(this.BlackPieces);
 
     this.whitePlayer = new WhitePlayer(this, whiteStandardLegalMoves, blackStandardLegalMoves);
     this.blackPlayer = new BlackPlayer(this, blackStandardLegalMoves, whiteStandardLegalMoves);
     this.currentPlayer = builder.nextMoveMaker.choosePlayer(this.whitePlayer, this.blackPlayer);
+
+
 }
     @Override
     public String toString(){
@@ -54,6 +57,7 @@ private Board(final Builder builder){
     public Collection<Piece> getBlackPieces(){
         return this.BlackPieces;
     }
+
 
     private Collection<Move> calculateLegalMoves(final Collection<Piece> pieces) {
         final List<Move> legalMoves = new ArrayList<>();
@@ -132,6 +136,9 @@ public static Board createStandardBoard(){
         allLegalMoves.addAll(this.blackPlayer.getLegalMoves());
         return Collections.unmodifiableList(allLegalMoves);
     }
+    public Pawn getEnPassantPawn(){
+        return this.enPassantPawn;
+    }
     public static class Builder{
     Map<Integer, Piece> boardConfig;
     Alliance nextMoveMaker;
@@ -147,14 +154,17 @@ public static Board createStandardBoard(){
         this.boardConfig.put(piece.getPiecePosition(),piece);
         return this;
     }
+    public Builder removePiece(final int piecePosition){
+        this.boardConfig.put(piecePosition, null);
+        return this;
+    }
     public Builder setMoveMaker(final Alliance nextMoveMaker) {
         this.nextMoveMaker = nextMoveMaker;
         return this;
     }
-
-        public void setEnPassantPawn(Pawn movedPawn) {
+    public void setEnPassantPawn(Pawn movedPawn) {
         this.enPassantPawn = movedPawn;
-        }
+    }
     }
 }
 

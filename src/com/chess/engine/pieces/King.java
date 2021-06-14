@@ -12,7 +12,10 @@ import java.util.List;
 
 public class King extends Piece{
     public King(final int piecePosition,final Alliance pieceAlliance) {
-        super(PieceType.KING, piecePosition, pieceAlliance);
+        super(PieceType.KING, piecePosition, pieceAlliance,true);
+    }
+    public King(final int piecePosition,final Alliance pieceAlliance,final boolean isFirstMove) {
+        super(PieceType.KING, piecePosition, pieceAlliance, isFirstMove);
     }
     private static final int[] CANDIDATE_MOVE_COORDINATE = {1,7,8,9,-1,-7,-8,-9};
     @Override
@@ -23,6 +26,17 @@ public class King extends Piece{
     public String toString(){
         return PieceType.KING.toString();
     }
+
+    @Override
+    public boolean isPawn() {
+        return false;
+    }
+
+    @Override
+    public Queen PawnPromo(Move move) {
+        return null;
+    }
+
     @Override
     public Collection<Move> calculateLegalMoves(Board board) {
         final List<Move> legalMoves = new ArrayList<>();
@@ -40,7 +54,7 @@ public class King extends Piece{
                     final Piece pieceAtDestination = candidateDestinationTile.getPiece();
                     final Alliance pieceAlliance = pieceAtDestination.getPieceAlliance();
                     if (this.pieceAlliance != pieceAlliance) {
-                        legalMoves.add(new Move.AttackMove(board, this, candidateDestinationCoordinate,pieceAtDestination));
+                        legalMoves.add(new Move.MajorAttackMove(board, this, candidateDestinationCoordinate,pieceAtDestination));
 
                     }
                 }

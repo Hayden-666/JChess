@@ -12,8 +12,10 @@ import java.util.List;
 
 public class Rook extends Piece{
     public Rook(final int piecePosition,final Alliance pieceAlliance) {
-        super(PieceType.ROOK, piecePosition, pieceAlliance);
+        super(PieceType.ROOK, piecePosition, pieceAlliance,true);
     }
+    public Rook(final int piecePosition,final Alliance pieceAlliance,final boolean isFirstMove) {
+        super(PieceType.ROOK, piecePosition, pieceAlliance,isFirstMove);}
     private final static int[] CANDIDATE_MOVE_VECTOR_COORDINATES = {1,-1,8,-8};
     @Override
     public Rook movePiece(Move move) {
@@ -23,6 +25,17 @@ public class Rook extends Piece{
     public String toString(){
         return PieceType.ROOK.toString();
     }
+
+    @Override
+    public boolean isPawn() {
+        return false;
+    }
+
+    @Override
+    public Queen PawnPromo(Move move) {
+        return null;
+    }
+
     @Override
     public Collection<Move> calculateLegalMoves(Board board) {
         final List<Move> legalMoves = new ArrayList<>();
@@ -44,7 +57,7 @@ public class Rook extends Piece{
                         final Piece pieceAtDestination = candidateDestinationTile.getPiece();
                         final Alliance pieceAlliance = pieceAtDestination.getPieceAlliance();
                         if (this.pieceAlliance != pieceAlliance) {
-                            legalMoves.add(new Move.AttackMove(board, this, candidateDestinationCoordinate, pieceAtDestination));
+                            legalMoves.add(new Move.MajorAttackMove(board, this, candidateDestinationCoordinate, pieceAtDestination));
 
                         }
                         break;
