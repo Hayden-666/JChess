@@ -18,7 +18,6 @@ import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -231,7 +230,7 @@ public class Table {
                                 System.out.println("successful create transition");
                                 System.out.println(transition.getMoveStatus());
                                 if(transition.getMoveStatus().isDone()){
-                                    chessBoard = transition.getBoard();
+                                    chessBoard = transition.getTransitionBoard();
                                     moveLog.addMove(move);
                                 }
                                 sourceTile = null;

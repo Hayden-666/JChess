@@ -27,8 +27,8 @@ public class TakenPiecesPanel extends JPanel {
 
     public TakenPiecesPanel(){
         super(new BorderLayout());
-        this.southPanel = new JPanel(new GridLayout(8,2));
-        this.northPanel =  new JPanel(new GridLayout(8,2));
+        this.southPanel = new JPanel(new GridLayout(10,2));
+        this.northPanel = new JPanel(new GridLayout(10,2));
         this.northPanel.setBackground(PANEL_COLOR);
         this.southPanel.setBackground(PANEL_COLOR);
         this.add(this.northPanel,BorderLayout.NORTH);
@@ -70,10 +70,14 @@ public class TakenPiecesPanel extends JPanel {
         for(final Piece takenPiece: WhiteTakenPieces){
             try{
                 final BufferedImage image = ImageIO.read(new File("art/"+
-                        takenPiece.getPieceAlliance().toString().substring(0,1)+""+takenPiece.toString()));
-                final ImageIcon icon = new ImageIcon(image);
+                        takenPiece.getPieceAlliance().toString().substring(0,1)+""+takenPiece.toString()+".gif"));
+                ImageIcon icon = new ImageIcon(image);
                 final JLabel imageLabel = new JLabel();
-                this.southPanel.add(imageLabel);
+                Image transformedImage = icon.getImage(); // transform it
+                Image newimg = transformedImage.getScaledInstance(20,20 ,  java.awt.Image.SCALE_SMOOTH); // scale it the smooth way
+                icon = new ImageIcon(newimg);  // transform it back
+                imageLabel.setIcon(icon);
+                this.northPanel.add(imageLabel);
             }catch(final IOException e){
                 e.printStackTrace();
             }
@@ -81,9 +85,13 @@ public class TakenPiecesPanel extends JPanel {
         for(final Piece takenPiece: BlackTakenPieces){
             try{
                 final BufferedImage image = ImageIO.read(new File("art/"+
-                        takenPiece.getPieceAlliance().toString().substring(0,1)+""+takenPiece.toString()));
-                final ImageIcon icon = new ImageIcon(image);
+                        takenPiece.getPieceAlliance().toString().substring(0,1)+""+takenPiece.toString()+".gif"));
+                ImageIcon icon = new ImageIcon(image);
                 final JLabel imageLabel = new JLabel();
+                Image transformedImage = icon.getImage(); // transform it
+                Image newimg = transformedImage.getScaledInstance(20,20 , java.awt.Image.SCALE_SMOOTH); // scale it the smooth way
+                icon = new ImageIcon(newimg);  // transform it back
+                imageLabel.setIcon(icon);
                 this.southPanel.add(imageLabel);
             }catch(final IOException e){
                 e.printStackTrace();

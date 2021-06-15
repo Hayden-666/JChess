@@ -20,20 +20,20 @@ public class BlackPlayer extends Player{
     @Override
     protected Collection<Move> calculateKingCastles(final Collection<Move> playerLegals,final Collection<Move> opponentLegals) {
         final List<Move> kingCastles = new ArrayList<>();
-        if(this.playerKing.isFirstMove() && ! this.isInCheck()){
+        if(this.playerKing.isFirstMove() && ! this.isInCheck() && this.isCastled() == false){
             if(!this.board.getTile(5).isTileOccupied() && !this.board.getTile(6).isTileOccupied()){
                 final Tile rookTile = this.board.getTile(7);
                 if(rookTile.isTileOccupied() && rookTile.getPiece().isFirstMove()){
                     if(Player.calculateAttackOnTile(5,opponentLegals).isEmpty()&&
                             Player.calculateAttackOnTile(6, opponentLegals).isEmpty()&&
                             rookTile.getPiece().getPieceType().isRook()){
-                        //TODO kingCastles
                         kingCastles.add(new Move.KingSidecastleMove(this.board,
                                 this.playerKing,
                                 6,
                                 (Rook)rookTile.getPiece(),
                                 rookTile.getTileCoordinate(),
                                 5));
+                        this.setCastleStatus(true);
                     }
                 }
             }
@@ -51,6 +51,7 @@ public class BlackPlayer extends Player{
                             (Rook)rookTile.getPiece(),
                             rookTile.getTileCoordinate(),
                             3));
+                    this.setCastleStatus(true);
                 }
             }
         }

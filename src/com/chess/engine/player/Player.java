@@ -15,6 +15,7 @@ public abstract class Player {
     protected final Collection<Move> legalMoves;
     protected final King playerKing;
     private final boolean isInCheck;
+    private boolean castleStatus = false;
 
     protected Player(final Board board, Collection<Move> legalMoves, Collection<Move> opponentMoves) {
         this.board = board;
@@ -68,8 +69,9 @@ public abstract class Player {
     public boolean isInStalemate(){
         return !this.isInCheck && !hasEscapeMoves();
     }
-    public boolean isCastled(){
-        return false;
+    public boolean isCastled(){ return castleStatus; }
+    public void setCastleStatus(boolean castleStatus){
+        this.castleStatus = castleStatus;
     }
     public MoveTransition makeMove(Move move){
         if(!isLegalMove(move)){
@@ -92,7 +94,6 @@ public abstract class Player {
                 return (King) piece;
             }
         }
-        System.out.println("WTF?? there is no king ??");
         throw new RuntimeException("should not reach here! Not a valid Board!");
     }
 
