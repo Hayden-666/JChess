@@ -43,11 +43,11 @@ public class MiniMax implements MoveStrategy{
         final long executiontime = System.currentTimeMillis() - startTime;
         return bestMove;
     }
-    private static boolean EndGameSenario(Board board){
+    private static boolean EndGameScenario(Board board){
         return board.currentPlayer().isInStalemate() || board.currentPlayer().isInCheckmate();
     }
     public int min(final Board board,final int depth){
-        if(depth == 0 || EndGameSenario(board)){
+        if(depth == 0 || EndGameScenario(board)){
             return this.boardEvaluator.evaluate(board, depth);
         }
         int lowestSeenValue = Integer.MAX_VALUE;
@@ -63,7 +63,7 @@ public class MiniMax implements MoveStrategy{
         return lowestSeenValue;
     }
     public int max(final Board board,final  int depth){
-        if(depth == 0 || EndGameSenario(board)){
+        if(depth == 0 || EndGameScenario(board)){
             return this.boardEvaluator.evaluate(board, depth);
         }
         int highestSeenValue = Integer.MIN_VALUE;
