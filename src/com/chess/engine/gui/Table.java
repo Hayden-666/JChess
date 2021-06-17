@@ -12,6 +12,8 @@ import com.google.common.collect.Lists;
 
 import javax.imageio.ImageIO;
 import javax.print.DocFlavor;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
@@ -351,6 +353,15 @@ public class Table extends Observable {
                                 sourceTile = null;
                                 destinationTile = null;
                                 humanMovedPiece = null;
+                                try {
+                                    SoundEffect soundEffect = new SoundEffect();
+                                } catch (IOException ioException) {
+                                    ioException.printStackTrace();
+                                } catch (UnsupportedAudioFileException unsupportedAudioFileException) {
+                                    unsupportedAudioFileException.printStackTrace();
+                                } catch (LineUnavailableException lineUnavailableException) {
+                                    lineUnavailableException.printStackTrace();
+                                }
                             }
                             SwingUtilities.invokeLater(new Runnable()  {
                                 @Override
@@ -361,6 +372,7 @@ public class Table extends Observable {
                                         Table.get().moveMadeUpdate(PlayerType.HUMAN);
                                     }
                                     boardPanel.drawBoard(chessBoard);
+
                                 }
                             });
 
