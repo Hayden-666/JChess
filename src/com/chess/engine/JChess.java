@@ -8,7 +8,7 @@ public class JChess {
         Board board = Board.createStandardBoard();
         System.out.println(board);
         //Table table = new Table();
-        new Table();
+        Table.get().show();
 
     }
 }
