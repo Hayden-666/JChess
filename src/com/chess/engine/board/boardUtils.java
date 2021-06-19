@@ -2,12 +2,16 @@ package com.chess.engine.board;
 
 import com.google.common.collect.ImmutableMap;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class boardUtils {
+    public static final List<String> PieceSelection = new ArrayList<>() {{
+        add("BISHOP");
+        add("PAWN");
+        add("KNIGHT");
+        add("QUEEN");
+        add("ROOK");
+    }};
     public static final boolean[] FIRST_COLUMN = initColumn(0);
     public static final boolean[] SECOND_COLUMN = initColumn(1);
     public static final boolean[] SEVENTH_COLUMN = initColumn(6);
@@ -66,6 +70,11 @@ public class boardUtils {
     }
     public static boolean isvalidtilecoordinate(int candidateDestinationCoordinate) {
         return candidateDestinationCoordinate >=0 && candidateDestinationCoordinate <NUM_TILES;
+    }
+    public static String PickRandPieces (List<String> list){
+        Random rand = new Random();
+        String randomElement = list.get(rand.nextInt(list.size()));
+        return randomElement;
     }
     public static int getCoordinateAtPosition(final String position){
         return POSITION_TO_COORDINATE.get(position);

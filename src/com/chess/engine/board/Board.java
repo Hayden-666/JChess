@@ -130,6 +130,56 @@ public static Board createStandardBoard(){
     builder.setMoveMaker(Alliance.WHITE);
     return builder.build();
 }
+    public static Board createStandardBoard2(){
+        final Builder builder = new Builder();
+        // BLACK SIDE
+        for (int i=0; i<16; i ++) {
+            String PieceString = boardUtils.PickRandPieces(boardUtils.PieceSelection);
+            if (PieceString == "BISHOP") {
+                builder.setPiece(new Bishop(i, Alliance.BLACK));
+            }
+            if (PieceString == "KNIGHT") {
+                builder.setPiece(new Knight(i, Alliance.BLACK));
+            }
+            if (PieceString == "QUEEN") {
+                builder.setPiece(new Queen(i, Alliance.BLACK));
+            }
+            if (PieceString == "ROOK") {
+                builder.setPiece(new Rook(i, Alliance.BLACK));
+            }
+            if (PieceString == "PAWN") {
+                builder.setPiece(new Pawn(i, Alliance.BLACK));
+            }
+            if (i == 4) {
+                builder.setPiece(new King(i, Alliance.BLACK));
+            }
+        }
+        //WHITE SIDE
+        for (int i=48; i<64; i ++) {
+            String PieceString = boardUtils.PickRandPieces(boardUtils.PieceSelection);
+            if (PieceString == "BISHOP") {
+                builder.setPiece(new Bishop(i, Alliance.WHITE));
+            }
+            if (PieceString == "KNIGHT") {
+                builder.setPiece(new Knight(i, Alliance.WHITE));
+            }
+            if (PieceString == "QUEEN") {
+                builder.setPiece(new Queen(i, Alliance.WHITE));
+            }
+            if (PieceString == "ROOK") {
+                builder.setPiece(new Rook(i, Alliance.WHITE));
+            }
+            if (PieceString == "PAWN") {
+                builder.setPiece(new Pawn(i, Alliance.WHITE));
+            }
+            if (i == 60) {
+                builder.setPiece(new King(i, Alliance.WHITE));
+            }
+        }
+
+        builder.setMoveMaker(Alliance.WHITE);
+        return builder.build();
+    }
     public Iterable<Move> getAllLegalMoves(){
         List<Move> allLegalMoves = new ArrayList<>();
         allLegalMoves.addAll(this.whitePlayer.getLegalMoves());

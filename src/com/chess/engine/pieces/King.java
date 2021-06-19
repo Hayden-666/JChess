@@ -68,7 +68,7 @@ public class King extends Piece{
             candidateOffset == 7);
 }
     private static boolean isEighthColumnExclusion(final int currentPosition, final int candidateOffset) {
-        return boardUtils.EIGHTH_COLUMN[currentPosition] && (candidateOffset == -7 || candidateOffset == -1 ||
+        return boardUtils.EIGHTH_COLUMN[currentPosition] && (candidateOffset == -7 || candidateOffset == 1 ||
                 candidateOffset == 9);
     }
 }

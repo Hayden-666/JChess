@@ -63,6 +63,7 @@ public class Table extends Observable {
         this.chessBoard = Board.createStandardBoard();
         this.gameFrame.setJMenuBar(tableMenuBar);
         this.gameFrame.setSize(OUTER_FRAME_DEMENSION);
+        this.gameFrame.setLocationRelativeTo(null);
         this.boardPanel = new BoardPanel();
         this.moveLog = new MoveLog();
         this.addObserver(new TableGameAIWatcher());
