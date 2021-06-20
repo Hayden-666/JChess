@@ -28,6 +28,7 @@ import java.util.*;
 import java.util.List;
 
 import static com.chess.engine.board.boardUtils.NUM_TILES;
+import static javax.swing.JOptionPane.showMessageDialog;
 import static javax.swing.SwingUtilities.isLeftMouseButton;
 import static javax.swing.SwingUtilities.isRightMouseButton;
 
@@ -57,10 +58,15 @@ public class Table extends Observable {
 
     private static final Table INSTANCE = new Table();
     public Table() {
-        this.gameFrame = new JFrame("JChess");
+        this.gameFrame = new JFrame("CHESS 2K21");
         this.gameFrame.setLayout(new BorderLayout());
         final JMenuBar tableMenuBar = createTableMenuBar();
-        this.chessBoard = Board.createStandardBoard();
+        if( HomePage.ModeIndicator == 1 ) {
+            this.chessBoard = Board.createStandardBoard();
+        }
+        if( HomePage.ModeIndicator == 2 ) {
+            this.chessBoard = Board.createStandardBoard2();
+        }
         this.gameFrame.setJMenuBar(tableMenuBar);
         this.gameFrame.setSize(OUTER_FRAME_DEMENSION);
         this.gameFrame.setLocationRelativeTo(null);
@@ -80,6 +86,9 @@ public class Table extends Observable {
     }
     public static Table get(){
         return INSTANCE;
+    }
+    public void Clear(){
+        Table.INSTANCE.gameFrame.setVisible(false);
     }
     public void show() {
         Table.get().getMoveLog().Clear();
@@ -214,14 +223,6 @@ public class Table extends Observable {
 
     private JMenu createFileMenu() {
         final JMenu fileMenu = new JMenu("File");
-        final JMenuItem openPGN = new JMenuItem("Load PGN file");
-        openPGN.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e){
-                System.out.println("open up that pgn file");
-            }
-        });
-        fileMenu.add(openPGN);
         final JMenuItem exitMenuItem= new JMenuItem("exit");
         exitMenuItem.addActionListener(new ActionListener() {
             @Override
@@ -229,6 +230,15 @@ public class Table extends Observable {
                 System.exit(0);
             }
         });
+
+        final JMenuItem backToHomePageMenuItem= new JMenuItem("back to home page");
+        backToHomePageMenuItem.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                gameFrame.setVisible(false);
+            }
+        });
+        fileMenu.add(backToHomePageMenuItem);
         fileMenu.add(exitMenuItem);
         return fileMenu;
         }
@@ -350,19 +360,20 @@ public class Table extends Observable {
                                     moveLog.addMove(move);
                                     Border selectBorder = BorderFactory.createLineBorder(Color.green);
                                     setBorder(selectBorder);
+                                    try {
+                                        SoundEffect soundEffect = new SoundEffect();
+                                    } catch (IOException ioException) {
+                                        ioException.printStackTrace();
+                                    } catch (UnsupportedAudioFileException unsupportedAudioFileException) {
+                                        unsupportedAudioFileException.printStackTrace();
+                                    } catch (LineUnavailableException lineUnavailableException) {
+                                        lineUnavailableException.printStackTrace();
+                                    }
                                 }
                                 sourceTile = null;
                                 destinationTile = null;
                                 humanMovedPiece = null;
-                                try {
-                                    SoundEffect soundEffect = new SoundEffect();
-                                } catch (IOException ioException) {
-                                    ioException.printStackTrace();
-                                } catch (UnsupportedAudioFileException unsupportedAudioFileException) {
-                                    unsupportedAudioFileException.printStackTrace();
-                                } catch (LineUnavailableException lineUnavailableException) {
-                                    lineUnavailableException.printStackTrace();
-                                }
+
                             }
                             SwingUtilities.invokeLater(new Runnable()  {
                                 @Override
