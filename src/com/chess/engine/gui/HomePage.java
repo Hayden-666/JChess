@@ -50,9 +50,9 @@ public class HomePage extends JFrame {
                 ModeIndicator = 1;
                 Board board = Board.createStandardBoard();
                 System.out.println(board);
-                Table.get().Clear();
-                Table table = new Table();
-                //Table.get().show();
+                //Table.get().Clear();
+                //Table table = new Table();
+                Table.get().show();
             }
         }
 
@@ -72,9 +72,9 @@ public class HomePage extends JFrame {
                 ModeIndicator = 2;
                 Board board = Board.createStandardBoard2();
                 System.out.println(board);
-                Table.get().Clear();
-                Table table = new Table();
-                //Table.get().show();
+                //Table.get().Clear();
+                //Table table = new Table();
+                Table.get().show();
             }
         });
 
