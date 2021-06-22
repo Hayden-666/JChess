@@ -111,7 +111,7 @@ public class Table extends Observable {
     }
     private JMenu createPrefereneMenu(){
         final JMenu preferenceMenu = new JMenu("preferences");
-        final JMenuItem flipBoardMenuItem = new JMenuItem("flit board");
+        final JMenuItem flipBoardMenuItem = new JMenuItem("flip board");
         flipBoardMenuItem.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
