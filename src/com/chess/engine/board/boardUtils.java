@@ -7,7 +7,11 @@ import java.util.*;
 public class boardUtils {
     public static final List<String> PieceSelection = new ArrayList<>() {{
         add("BISHOP");
+        add("BISHOP");
         add("PAWN");
+        add("PAWN");
+        add("PAWN");
+        add("KNIGHT");
         add("KNIGHT");
         add("QUEEN");
         add("ROOK");

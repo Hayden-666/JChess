@@ -20,13 +20,13 @@ public class HomePage extends JFrame {
         title.setBounds(180, 10, 250, 100);
 
 
-        JLabel mode = new JLabel("MODE 1:");
-        mode.setFont(new Font("Apple Casual",Font.BOLD,25));
-        mode.setLayout(null);
-        mode.setForeground(Color.white);
-        mode.setBackground(Color.black);
-        mode.setOpaque(false);
-        mode.setBounds(120, 120, 150, 100);
+        JLabel mode1 = new JLabel("MODE 1:");
+        mode1.setFont(new Font("Apple Casual",Font.BOLD,25));
+        mode1.setLayout(null);
+        mode1.setForeground(Color.white);
+        mode1.setBackground(Color.black);
+        mode1.setOpaque(false);
+        mode1.setBounds(120, 120, 150, 100);
 
         JLabel mode2 = new JLabel("MODE 2:");
         mode2.setFont(new Font("Apple Casual",Font.BOLD,25));
@@ -87,7 +87,7 @@ public class HomePage extends JFrame {
         this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
          this.setVisible(true);
          this.add(title);
-         this.add(mode);
+         this.add(mode1);
          this.add(mode2);
          this.add(button1);
          this.add(button2);
